@@ -12,7 +12,7 @@ function simple_fb_connect_api_keys_settings($form, &$form_state) {
   }
 
   // show instructions to README.txt
-  drupal_set_message('Installation and configuration instructions can be found from the README.txt');
+  drupal_set_message(t('Installation and configuration instructions can be found from the README.txt'));
 
   $form['fb_settings'] = array(
     '#type' => 'fieldset',
