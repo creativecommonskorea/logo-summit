@@ -12646,3 +12646,79 @@ h1, h2, h3, h4, h5, h6 {
 .img-centered {
   margin: 0 auto;
 }
+
+#main-wrapper {
+  padding-top: 3em;
+  background: url('../images/logo-bottom-bg.jpg') center bottom no-repeat;
+}
+
+.img-block {
+  padding-top: 2em;
+}
+
+#splash .container {
+  padding-top: 10px;
+  background: url('../images/logo-top-bg.png') center 5px repeat-x;
+}
+
+#splash .container .row {
+  background-color: #fff;
+}
+
+.notice {
+  padding: 1.5em 2em;
+}
+
+#content {
+  padding-top: 3em;
+}
+
+#splash {
+  padding-bottom: 10px;
+  background: url('../images/down-arrow.png') center bottom no-repeat;
+  margin-bottom: 40px;
+}
+
+.details {
+  background-color: #f6f6f6;
+}
+
+.details .box {
+  background-color: #fff;
+  margin: 1.5em;
+  padding: 1.5em;
+}
+
+#logo-heading {
+  width: 100%;
+  max-width: 320px;
+  background: #fff;
+  position: relative;
+  padding: 20px;
+  margin-top: -65px;
+}
+
+.image-widget-data {
+  width: 100%;
+}
+
+.thumbnail {
+  margin-bottom: 5px;
+  margin-top: 25px;
+}
+
+.node-type-logo .field-name-field-image {
+  text-align: center;
+  border: 1px solid #ccc;
+  margin-bottom: 1em;
+  padding: 1em;
+}
+
+.node-type-logo .image-preview {
+  width: 100%;
+  text-align: center;
+}
+
+.node-type-logo .title.comment-form {
+  display: none;
+}

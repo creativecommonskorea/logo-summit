@@ -75,3 +75,50 @@ function ccgs_logo_theme() {
   return $items;
 }
 
+/**
+ * Add cancel button to logo edit form.
+ */
+function ccgs_logo_form_logo_node_form_alter(&$form, &$form_state, $form_id) {
+  $destination = (!isset($node->nid) || isset($node->is_new)) ? '/' : "node/{$node->nid}";
+
+  $form['actions']['cancel'] = array(
+    '#markup' => l(t('Cancel'), $destination,  array('attributes' => array('class' => array('btn', 'btn-default')))),
+    '#weight' => 10,
+  );
+
+  $form['actions']['delete']['#attributes'] = array(
+    'class' => array('btn', 'btn-danger', 'pull-right')
+  );
+}
+
+/**
+ * Check if current path need header or not.
+ */
+function ccgs_check_if_no_header() {
+  global $language;
+  $no_header_pathes = array(
+    'user', 'user/login', 'user/register', 'user/password'
+  );
+  // debug('lang');
+  // debug(!empty($language->language));
+  // debug('admin');
+  // debug(!path_is_admin(current_path()));
+  // debug('lang');
+  // debug(!in_array(current_path(), $no_header_pathes));
+
+  return !empty($language->language) && !in_array(current_path(), $no_header_pathes);
+}
+
+function ccgs_check_if_admin() {
+  $no_header_pathes = array(
+    'node/add/logo'
+  );
+  return path_is_admin(current_path()) && !in_array(current_path(), $no_header_pathes);
+}
+
+
+function ccgs_logo_preprocess_html(&$variables) {
+  drupal_add_css('//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.css', array(
+    'type' => 'external'
+  ));
+}

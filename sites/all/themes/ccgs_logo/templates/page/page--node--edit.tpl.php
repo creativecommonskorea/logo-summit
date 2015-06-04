@@ -9,10 +9,10 @@
  * @see template_process()
  * @see html.tpl.php
  */
-if (ccgs_check_if_no_header() && !ccgs_check_if_admin()) {
+
+if (ccgs_check_if_no_header()) {
   require(__DIR__ . '/header_' . $language->language . '.html');
 }
-
 ?>
 
 <div id="content" class="container">
@@ -23,27 +23,9 @@ if (ccgs_check_if_no_header() && !ccgs_check_if_admin()) {
   </div>
   <?php endif; ?>
   
-  <?php if (path_is_admin(current_path())): ?>
-  <div id="page-header">
-    <?php if ($title): ?>
-      <div class="page-header">
-        <h1 class="title"><?php print $title; ?></h1>
-      </div>
-    <?php endif; ?>
-    <?php if ($tabs): ?>
-      <div class="tabs">
-        <?php print render($tabs); ?>
-      </div>
-    <?php endif; ?>
-    <?php if ($action_links): ?>
-      <ul class="action-links">
-        <?php print render($action_links); ?>
-      </ul>
-    <?php endif; ?>
+  <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2">
+    <?php print render($page['content']); ?>
   </div>
-  <?php endif; ?>
-
-  <?php print render($page['content']); ?>
 </div>
 
 <footer id="footer" class="footer" role="footer">
@@ -51,8 +33,6 @@ if (ccgs_check_if_no_header() && !ccgs_check_if_admin()) {
     <?php if ($copyright): ?>
       <small class="copyright pull-left"><?php print $copyright; ?></small>
     <?php endif; ?>
-    <?php if (ccgs_check_if_no_header()): ?>
     <small class="pull-right"><a href="#"><?php print t('Back to Top'); ?></a></small>
-    <?php endif; ?>
   </div>
 </footer>

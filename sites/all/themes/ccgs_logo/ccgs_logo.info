@@ -8,6 +8,7 @@ base theme  = radix
 
 
 ; Regions
+regions[header] = Header
 regions[content] = Content
 
 ; Panels
