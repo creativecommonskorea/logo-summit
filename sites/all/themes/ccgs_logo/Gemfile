@@ -1,0 +1,11 @@
+# Pull gems from RubyGems
+source 'https://rubygems.org'
+
+# Radix gems
+gem 'bootstrap-sass', '~> 3.2'
+gem 'compass_radix', '~> 3.1.5'
+
+# guard
+gem 'guard', '~> 2.12.5'
+gem 'guard-livereload', '~> 2.4.0'
+gem 'guard-compass', '1.1.0'
