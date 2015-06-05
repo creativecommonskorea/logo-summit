@@ -42,16 +42,22 @@ if (ccgs_check_if_no_header() && !ccgs_check_if_admin()) {
     <?php endif; ?>
   </div>
   <?php endif; ?>
-
-  <?php print render($page['content']); ?>
+  <div class="col-md-10 col-md-offset-1">
+    <?php print render($page['content']); ?>
+  </div>
 </div>
 
 <footer id="footer" class="footer" role="footer">
   <div class="container">
-    <a rel="license" class="pull-left media" href="http://creativecommons.org/licenses/by/2.0/kr/">
-      <img alt="크리에이티브 커먼즈 라이선스" style="border-width:0" src="http://i.creativecommons.org/l/by/2.0/kr/88x31.png">
-    </a>
-    <p style="margin-left: 1em; margin-top: 0.5em; display: inline-block">CCKOREA에 의해 작성된 CCKOREA 웹사이트는 크리에이티브 커먼즈 저작자표시 2.0 대한민국 라이선스에 따라 이용할 수 있습니다.</p>
+    <div class="row">
+      <div class="col-md-10 col-md-offset-1">
+        <a rel="license" class="pull-left media" href="http://creativecommons.org/licenses/by/2.0/kr/">
+          <img alt="크리에이티브 커먼즈 라이선스" style="border-width:0" src="http://i.creativecommons.org/l/by/2.0/kr/88x31.png">
+        </a>
+        <p style="margin-left: 1em; margin-top: 0.5em; display: inline-block">CCKOREA에 의해 작성된 CCKOREA 웹사이트는 크리에이티브 커먼즈 저작자표시 2.0 대한민국 라이선스에 따라 이용할 수 있습니다.</p>
+      </div>
+    </div>
+    
     <!--
     <?php if ($copyright): ?>
       <small class="copyright pull-left"><?php print $copyright; ?></small>

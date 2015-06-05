@@ -12649,7 +12649,8 @@ h1, h2, h3, h4, h5, h6 {
 
 #main-wrapper {
   padding-top: 3em;
-  background: url('../images/logo-bottom-bg.jpg') center bottom no-repeat;
+  background: #ccc;
+  /*background: url('../images/logo-bottom-bg.jpg') center bottom no-repeat;*/
 }
 
 .img-block {
@@ -12684,9 +12685,48 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .details .box {
-  background-color: #fff;
   margin: 1.5em;
   padding: 1.5em;
+}
+
+.details .box ul {
+  margin: 0;
+  padding: 0;
+}
+
+.details .box li {
+  list-style: none;
+}
+
+.details .box li strong {
+  display: inline-block;
+  width: 70px;
+  color: rgb(103, 101, 222);
+}
+
+.details .box li.method strong.cell {  
+  float: left;
+  width: 75px;
+  height: 40px;
+}
+
+.details .box li.guide strong.cell {  
+  float: left;
+  width: 75px;
+  height: 100px;
+}
+
+.details a {
+  color: rgb(103, 101, 222); 
+}
+.details a:hover {
+  text-decoration: underline;
+}
+
+.details .box li.conditions strong.cell {  
+  float: left;
+  width: 75px;
+  height: 150px;
 }
 
 #logo-heading {
@@ -12696,6 +12736,15 @@ h1, h2, h3, h4, h5, h6 {
   position: relative;
   padding: 20px;
   margin-top: -65px;
+}
+
+#logo-heading-en {
+  width: 100%;
+  background: #fff;
+  position: relative;
+  padding: 20px;
+  margin-top: -65px;
+  color: rgb(103, 101, 222); 
 }
 
 .image-widget-data {
@@ -12721,4 +12770,42 @@ h1, h2, h3, h4, h5, h6 {
 
 .node-type-logo .title.comment-form {
   display: none;
+}
+
+.block-apply {
+  margin: 2em 0;
+}
+
+.btn-apply {
+  color: rgb(103, 101, 222);
+}
+
+#logo-cck {
+  max-width: 240px;
+}
+
+.links {
+  padding: 1.5em;
+}
+
+.en .details h4 {
+  color: rgb(103, 101, 222);
+}
+
+.en .details .box li strong {
+  display: inline-block;
+  width: 100px;
+  color: rgb(103, 101, 222);
+}
+
+.en .details .box li.selection strong {  
+  float: left;
+  width: 105px;
+  height: 80px;
+}
+
+.en .details .box li.prize strong {  
+  float: left;
+  width: 105px;
+  height: 40px;
 }

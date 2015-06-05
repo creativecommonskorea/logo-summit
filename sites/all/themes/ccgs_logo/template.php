@@ -122,3 +122,7 @@ function ccgs_logo_preprocess_html(&$variables) {
     'type' => 'external'
   ));
 }
+
+function is_korean() {
+  return !empty($language->language) && ($language->language == 'ko');
+}
