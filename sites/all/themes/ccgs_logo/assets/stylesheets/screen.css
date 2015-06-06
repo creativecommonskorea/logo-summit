@@ -12739,7 +12739,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #logo-heading-en {
-  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
   background: #fff;
   position: relative;
   padding: 20px;
