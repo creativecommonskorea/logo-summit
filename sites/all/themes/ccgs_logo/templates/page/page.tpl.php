@@ -22,27 +22,29 @@ if (ccgs_check_if_no_header() && !ccgs_check_if_admin()) {
     <?php print $messages; ?>
   </div>
   <?php endif; ?>
-  
-  <?php if (path_is_admin(current_path())): ?>
-  <div id="page-header">
-    <?php if ($title): ?>
-      <div class="page-header">
-        <h1 class="title"><?php print $title; ?></h1>
-      </div>
-    <?php endif; ?>
-    <?php if ($tabs): ?>
-      <div class="tabs">
-        <?php print render($tabs); ?>
-      </div>
-    <?php endif; ?>
-    <?php if ($action_links): ?>
-      <ul class="action-links">
-        <?php print render($action_links); ?>
-      </ul>
-    <?php endif; ?>
-  </div>
-  <?php endif; ?>
+
   <div class="col-md-10 col-md-offset-1">
+  
+    <?php if (path_is_admin(current_path())): ?>
+    <div id="page-header">
+      <?php if ($title): ?>
+        <div class="page-header">
+          <h1 class="title"><?php print $title; ?></h1>
+        </div>
+      <?php endif; ?>
+      <?php if ($tabs): ?>
+        <div class="tabs">
+          <?php print render($tabs); ?>
+        </div>
+      <?php endif; ?>
+      <?php if ($action_links): ?>
+        <ul class="action-links">
+          <?php print render($action_links); ?>
+        </ul>
+      <?php endif; ?>
+    </div>
+    <?php endif; ?>
+
     <?php print render($page['content']); ?>
   </div>
 </div>

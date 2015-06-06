@@ -97,7 +97,7 @@ function ccgs_logo_form_logo_node_form_alter(&$form, &$form_state, $form_id) {
 function ccgs_check_if_no_header() {
   global $language;
   $no_header_pathes = array(
-    'user', 'user/login', 'user/register', 'user/password'
+    'user', 'user/login', 'user/register', 'user/password', 'user/reset'
   );
   // debug('lang');
   // debug(!empty($language->language));
