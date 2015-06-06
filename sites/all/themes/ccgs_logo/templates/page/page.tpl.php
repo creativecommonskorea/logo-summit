@@ -17,15 +17,9 @@ if (ccgs_check_if_no_header() && !ccgs_check_if_admin()) {
 
 <div id="content" class="container">
 
-  <?php if ($messages): ?>
-  <div id="messages">
-    <?php print $messages; ?>
-  </div>
-  <?php endif; ?>
-
   <div class="col-md-10 col-md-offset-1">
-  
-    <?php if (path_is_admin(current_path())): ?>
+
+    <?php if (ccgs_check_if_admin()): ?>
     <div id="page-header">
       <?php if ($title): ?>
         <div class="page-header">
@@ -44,6 +38,13 @@ if (ccgs_check_if_no_header() && !ccgs_check_if_admin()) {
       <?php endif; ?>
     </div>
     <?php endif; ?>
+
+    <?php if ($messages): ?>
+    <div id="messages">
+      <?php print $messages; ?>
+    </div>
+    <?php endif; ?>
+
 
     <?php print render($page['content']); ?>
   </div>
