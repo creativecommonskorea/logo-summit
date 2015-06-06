@@ -8,7 +8,7 @@
 (function ($) {
   Drupal.behaviors.dragndropUploadMedia = {
     attach: function (context, settings) {
-      if (!settings.dragndropUploadMedia) {
+      if (!settings.dragndropUploadMedia || ($.browser.msie && $.browser.version <= 10) || $('html').hasClass('not-supported-dnd')) {
         return;
       }
 

@@ -9,6 +9,10 @@
       if (!settings.dragndropUpload) {
         return;
       }
+      if (($.browser.msie && $.browser.version <= 10) || $('html').hasClass('not-supported-dnd')) {
+        $('html').addClass('not-supported-dnd');
+        return;
+      }
 
       $.each(settings.dragndropUpload, function (selector, settings) {
         $(selector, context).once('dnd-upload', function () {

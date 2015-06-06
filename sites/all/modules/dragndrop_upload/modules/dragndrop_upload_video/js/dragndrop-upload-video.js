@@ -6,7 +6,7 @@
 (function ($) {
   Drupal.behaviors.dragndropUploadVideo = {
     attach: function (context, settings) {
-      if (!settings.dragndropUploadVideo) {
+      if (!settings.dragndropUploadVideo || ($.browser.msie && $.browser.version <= 10) || $('html').hasClass('not-supported-dnd')) {
         return;
       }
 

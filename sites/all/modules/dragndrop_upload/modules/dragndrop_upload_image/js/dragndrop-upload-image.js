@@ -6,7 +6,7 @@
 (function ($) {
   Drupal.behaviors.dragndropUploadImage = {
     attach: function (context, settings) {
-      if (!settings.dragndropUploadImage) {
+      if (!settings.dragndropUploadImage || ($.browser.msie && $.browser.version <= 10) || $('html').hasClass('not-supported-dnd')) {
         return;
       }
 

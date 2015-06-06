@@ -58,3 +58,16 @@
 .form-managed-file .droppable-controls input.progress-disabled {
   display: none;
 }
+
+html.not-supported-dnd .droppable-standard-upload-hidden {
+  height: auto;
+  width: 100%;
+  overflow: visible;
+}
+html.not-supported-dnd .droppable-controls input {
+  display: block;
+}
+html.not-supported-dnd .droppable {
+  display: none;
+}
+
