@@ -141,3 +141,7 @@ function ccgs_logo_preprocess_field(&$variables, $hook) {
     }
   }
 }
+
+function check_need_tabs() {
+  return arg(0) == 'user' and is_numeric(arg(1));
+}

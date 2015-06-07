@@ -9,7 +9,7 @@
  * @see template_process()
  * @see html.tpl.php
  */
-if (ccgs_check_if_no_header() && !ccgs_check_if_admin()) {
+if (ccgs_check_if_no_header()) {
   require(__DIR__ . '/header_' . $language->language . '.html');
 }
 
