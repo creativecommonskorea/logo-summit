@@ -9,35 +9,87 @@
  * @see template_process()
  * @see html.tpl.php
  */
-
-// debug(ccgs_check_if_no_header());
-
-if (ccgs_check_if_no_header() && !ccgs_check_if_admin()) {
-  require(__DIR__ . '/header_' . $language->language . '.html');
-}
 ?>
+<div id="main-wrapper">
+  <div id="main" class="main clearfix">
+    <div class="container">
+      <div class="row">
 
-<div id="content" class="container">
+        <div id="splash" class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2">
+          
+          <div class="container">
+            
+            <div class="row img-block">
 
-  <?php if ($messages): ?>
-  <div id="messages">
-    <?php print $messages; ?>
-  </div>
-  <?php endif; ?>
+              <div class="links">
+                <a href="http://summit.creativecommons.org<?php if (is_korean()) echo '/kr' ?>">2015 CC global Summit</a>
+              </div>
 
-  <div class="row">
-    <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2">
-      <?php print render($page['content']); ?>    
+              <?php if ($language->language == "ko"): ?>
+              <p><a href="/<?php echo $language->language; ?>"><img alt="" class="img-responsive img-centered" src="/sites/all/themes/ccgs_logo/assets/images/logo-icon.png" /></a></p>
+              <p>&nbsp;</p>
+              <hr  />
+              <img id="logo-heading" class="img-centered img-responsive" src="/sites/all/themes/ccgs_logo/assets/images/logo-open.png" alt="로고를 공모합니다.">
+              
+              <?php else: ?>
+
+              <p><a href="/<?php echo $language->language; ?>"><img alt="" class="img-responsive img-centered" src="/sites/all/themes/ccgs_logo/assets/images/logo-icon.png" /></a></p>
+              <p>&nbsp;</p>
+              <hr  />
+              <h1 id="logo-heading-en" class="text-center">Logo Design Competition</h1>
+
+              <?php endif; ?>
+
+
+            </div>
+            
+            <div class="row">
+              <?php if ($messages): ?>
+              <div id="messages">
+                <?php print $messages; ?>
+              </div>
+              <?php endif; ?>
+
+              <?php if (check_need_tabs()): ?>
+              <div id="page-header" style="padding: 1em;">
+                <?php if ($title): ?>
+                  <div class="page-header">
+                    <h1 class="title"><?php print $title; ?></h1>
+                  </div>
+                <?php endif; ?>
+                <?php if ($tabs): ?>
+                  <div class="tabs">
+                    <?php print render($tabs); ?>
+                  </div>
+                <?php endif; ?>
+                <?php if ($action_links): ?>
+                  <ul class="action-links">
+                    <?php print render($action_links); ?>
+                  </ul>
+                <?php endif; ?>
+              </div>
+              <?php endif; ?>
+
+            </div>
+
+            <div class="row details-box">
+              <div class="details text-left clearfix">
+                <div class="col-md-8 col-md-offset-2">
+                  <div class="box">
+
+                    <?php print render($page['content']); ?>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
     </div>
-  </div>
-  
-</div>
 
-<footer id="footer" class="footer" role="footer">
-  <div class="container">
-    <?php if ($copyright): ?>
-      <small class="copyright pull-left"><?php print $copyright; ?></small>
-    <?php endif; ?>
-    <small class="pull-right"><a href="#"><?php print t('Back to Top'); ?></a></small>
-  </div>
-</footer>
+  </div> <!-- /#main -->
+</div> <!-- /#main-wrapper -->
