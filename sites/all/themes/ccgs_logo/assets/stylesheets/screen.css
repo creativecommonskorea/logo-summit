@@ -12815,6 +12815,16 @@ h1 small {
   margin-left: 1.5rem;
 }
 
-.page-user a {
+.page-user-register.i18n-en h1 {
+  font-size: 240%;
+  margin-bottom: 1em;
+}
+
+.page-user h1 a,
+.page-user .social-signin a {
   color: #fff;
+}
+
+.user-picture, .field-name-field-license {
+  display: none;
 }
