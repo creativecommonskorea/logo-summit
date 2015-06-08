@@ -54,10 +54,14 @@ if (ccgs_check_if_no_header()) {
   <div class="container">
     <div class="row">
       <div class="col-md-10 col-md-offset-1">
-        <a rel="license" class="pull-left media" href="http://creativecommons.org/licenses/by/2.0/kr/">
-          <img alt="크리에이티브 커먼즈 라이선스" style="border-width:0" src="http://i.creativecommons.org/l/by/2.0/kr/88x31.png">
-        </a>
-        <p style="margin-left: 1em; margin-top: 0.5em; display: inline-block">CCKOREA에 의해 작성된 CCKOREA 웹사이트는 크리에이티브 커먼즈 저작자표시 2.0 대한민국 라이선스에 따라 이용할 수 있습니다.</p>
+        <p>&nbsp;</p>
+        <p style="margin-left: 1em; margin-top: 0.5em; display: inline-block">
+        <?php if ($language->language == 'en'): ?>
+          <a href="https://creativecommons.org">Creative Commons</a>, with <a href="http://cckorea.org">Creative Commons Korea</a> contact: info@creativecommons.org  
+        <?php else: ?>
+          이 사이트는 <a href="https://creativecommons.org">크리에이티브 커먼즈</a>와 <a href="http://cckorea.org">크리에이티브커먼즈 코리아</a>에서 운영합니다. creative@cckorea.org / 070-7618-0321
+        <?php endif; ?>
+        </p>
       </div>
     </div>
     
