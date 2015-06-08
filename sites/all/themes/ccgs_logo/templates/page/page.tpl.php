@@ -57,7 +57,7 @@ if (ccgs_check_if_no_header()) {
         <p>&nbsp;</p>
         <p style="margin-left: 1em; margin-top: 0.5em; display: inline-block">
         <?php if ($language->language == 'en'): ?>
-          <a href="https://creativecommons.org">Creative Commons</a>, with <a href="http://cckorea.org">Creative Commons Korea</a> contact: info@creativecommons.org  
+          This web site is operated by <a href="https://creativecommons.org">Creative Commons</a> and <a href="http://cckorea.org">Creative Commons Korea</a> info@creativecommons.org
         <?php else: ?>
           이 사이트는 <a href="https://creativecommons.org">크리에이티브 커먼즈</a>와 <a href="http://cckorea.org">크리에이티브커먼즈 코리아</a>에서 운영합니다. creative@cckorea.org / 070-7618-0321
         <?php endif; ?>
