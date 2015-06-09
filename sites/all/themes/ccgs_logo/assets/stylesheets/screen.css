@@ -12704,21 +12704,41 @@ h1, h2, h3, h4, h5, h6 {
   color: rgb(103, 101, 222);
 }
 
+.details .box li.method {
+  margin-bottom: 20px;
+}
+
 .details .box li.method strong.cell {  
   float: left;
   width: 75px;
-  height: 40px;
+  height: 60px;
+}
+
+.details .box li.prize{
+  margin-bottom: 20px;
+}
+
+.details .box li.prize strong {  
+  float: left;
+  width: 75px;
+  height: 60px;
+}
+
+
+.details .box li.guide {
+  margin-bottom: 20px;
 }
 
 .details .box li.guide strong.cell {  
   float: left;
   width: 75px;
-  height: 100px;
+  height: 120px;
 }
 
 .details a {
   color: rgb(103, 101, 222); 
 }
+
 .details a:hover {
   text-decoration: underline;
 }
