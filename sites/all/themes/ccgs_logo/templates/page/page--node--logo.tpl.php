@@ -23,6 +23,16 @@
 
               <div class="links">
                 <a href="http://summit.creativecommons.org<?php if (is_korean()) echo '/kr' ?>">2015 CC Global Summit</a>
+                <?php 
+                if (user_is_logged_in()) {
+                  echo l(t('My account'), 'user', array('attributes' => array('class' => array('pull-right'))));
+                  echo '<br />';
+                  echo l(t('Logout'), 'user/logout', array('attributes' => array('class' => array('pull-right'))));
+                }
+                else {
+                  echo l(t('Login'), 'user', array('attributes' => array('class' => array('pull-right')))); 
+                }
+                ?>
               </div>
 
               <?php if ($language->language == "ko"): ?>
