@@ -22,7 +22,7 @@
             <div class="row img-block">
 
               <div class="links">
-                <a href="http://summit.creativecommons.org<?php if (is_korean()) echo '/kr' ?>">2015 CC global Summit</a>
+                <a href="http://summit.creativecommons.org<?php if (is_korean()) echo '/kr' ?>">2015 CC Global Summit</a>
               </div>
 
               <?php if ($language->language == "ko"): ?>
