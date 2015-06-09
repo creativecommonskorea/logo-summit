@@ -202,6 +202,7 @@ function twitter_signin_oauth_callback_submit(&$form, &$form_state) {
  * signed in with Twitter but did not have an account in the site yet.
  */
 function twitter_signin_user_insert(&$edit, $account, $category) {
+  watchdog('twitter', 'twitter_signin_user_insert', array(), WATCHDOG_NOTICE);
   _twitter_signin_add_account($edit, $account);
 }
 
