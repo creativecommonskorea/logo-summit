@@ -120,7 +120,7 @@ function twitter_signin_form_alter(&$form, $form_state, $form_id) {
  * Form submit for the OAuth callback. Here we add in sign-in specific handling.
  */
 function twitter_signin_oauth_callback_submit(&$form, &$form_state) {
-  global $user;
+  global $user, $language;
   $success = FALSE;
 
   $key = variable_get('twitter_consumer_key', '');
@@ -146,13 +146,18 @@ function twitter_signin_oauth_callback_submit(&$form, &$form_state) {
     // No existing user account, let's see if we can register.
     if (variable_get('twitter_signin_register', 0)) {
       // Check for a nickname collision.
-      $account = array_shift(user_load_multiple(array(), array('name' => $response['screen_name'])));
+      $account = user_load_multiple(array(), array('name' => $response['screen_name']));
+      $account = array_shift($account);
+
       if (empty($account->uid)) {
+        $account = new StdClass();
         $password = user_password();
         $account->name = $response['screen_name'];
         $account->pass = $password;
         $account->init = $response['screen_name'];
         $account->status = 1;
+        $account->timezone = variable_get('date_default_timezone', '');
+        $account->language = $language->language;
         $account->authname_twitter = $response['user_id'];
         $account->access = REQUEST_TIME;
         $account->is_new = TRUE;
