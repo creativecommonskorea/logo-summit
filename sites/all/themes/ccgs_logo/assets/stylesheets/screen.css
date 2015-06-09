@@ -12822,7 +12822,7 @@ h1, h2, h3, h4, h5, h6 {
 .en .details .box li.selection strong {  
   float: left;
   width: 105px;
-  height: 80px;
+  height: 100px;
 }
 
 .en .details .box li.prize strong {  
