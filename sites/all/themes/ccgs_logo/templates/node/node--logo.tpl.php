@@ -90,7 +90,7 @@
   <?php endif; ?>
   <?php print render($title_suffix); ?>
 
-  <div class="content col-md-8 col-md-offset-2"<?php print $content_attributes; ?>>
+  <div class="content"<?php print $content_attributes; ?>>
     <?php if ($logged_in && ($uid == $user->uid)): ?>
     <p class="pull-right"><a href="/node/<?php echo $node->nid; ?>/edit" class="btn btn-default"><?php echo t('Edit') ?></a></p>
     <?php endif; ?>

@@ -38,6 +38,9 @@ function ccgs_logo_preprocess_page(&$variables) {
     unset($variables['page']['content']['system_main']['default_message']); //will remove message "no front page content is created"
     drupal_set_title(''); //removes welcome message (page title)
   }
+  if (!empty($variables['node']) && !empty($variables['node']->type)) {
+    $variables['theme_hook_suggestions'][] = 'page__node__' . $variables['node']->type;
+  }
 }
 
 /**
