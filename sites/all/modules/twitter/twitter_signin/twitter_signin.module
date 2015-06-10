@@ -161,7 +161,6 @@ function twitter_signin_oauth_callback_submit(&$form, &$form_state) {
         $account->authname_twitter = $response['user_id'];
         $account->access = REQUEST_TIME;
         $account->is_new = TRUE;
-        $_SESSION['twitter']['values'] = $response;
         $account = user_save($account);
         $user = $account;
         $form_state['twitter_oauth']['account'] = $account;
