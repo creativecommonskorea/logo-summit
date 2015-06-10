@@ -12682,6 +12682,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .details {
   background-color: #f6f6f6;
+  font-size: 95%;
 }
 
 .details .box {
