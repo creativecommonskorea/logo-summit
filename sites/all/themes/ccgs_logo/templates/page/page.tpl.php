@@ -1,3 +1,9 @@
+<?php if ($messages): ?>
+  <div id="messages">
+    <?php print $messages; ?>
+  </div>
+<?php endif; ?>
+
 <?php
 
 /**
@@ -9,7 +15,7 @@
  * @see template_process()
  * @see html.tpl.php
  */
-if (ccgs_check_if_no_header()) {
+if (ccgs_need_header()) {
   require(__DIR__ . '/header_' . $language->language . '.html');
 }
 
@@ -17,9 +23,9 @@ if (ccgs_check_if_no_header()) {
 
 <div id="content" class="container">
 
-  <div class="col-md-10 col-md-offset-1">
+  <div class="col-lg-10 col-lg-offset-1">
 
-    <?php if (ccgs_check_if_admin()): ?>
+    <?php if (check_need_tabs()): ?>
     <div id="page-header">
       <?php if ($title): ?>
         <div class="page-header">
@@ -39,13 +45,6 @@ if (ccgs_check_if_no_header()) {
     </div>
     <?php endif; ?>
 
-    <?php if ($messages): ?>
-    <div id="messages">
-      <?php print $messages; ?>
-    </div>
-    <?php endif; ?>
-
-
     <?php print render($page['content']); ?>
   </div>
 </div>
@@ -64,14 +63,6 @@ if (ccgs_check_if_no_header()) {
         </p>
       </div>
     </div>
-    
-    <!--
-    <?php if ($copyright): ?>
-      <small class="copyright pull-left"><?php print $copyright; ?></small>
-    <?php endif; ?>
-    <?php if (ccgs_check_if_no_header()): ?>
-    <small class="pull-right"><a href="#"><?php print t('Back to Top'); ?></a></small>
-    <?php endif; ?>
-    -->
+
   </div>
 </footer>
