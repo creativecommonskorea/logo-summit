@@ -1,4 +1,4 @@
-<?php if ($messages): ?>
+<?php if (!ccgs_need_header() && $messages): ?>
   <div id="messages">
     <?php print $messages; ?>
   </div>

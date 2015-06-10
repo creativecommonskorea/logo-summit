@@ -29,6 +29,13 @@
               <p>&nbsp;</p>
               <hr  />
               <img id="logo-heading" class="img-centered img-responsive" src="/sites/all/themes/ccgs_logo/assets/images/logo-open.png" alt="로고를 공모합니다.">
+
+              <?php if ($messages): ?>
+              <div id="messages">
+                <?php print $messages; ?>
+              </div>
+              <?php endif; ?>
+              
             </div>
 
             <div class="row">
