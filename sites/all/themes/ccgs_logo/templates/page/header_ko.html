@@ -19,7 +19,7 @@
                   echo l(t('Logout'), 'user/logout', array('attributes' => array('class' => array('pull-right'))));
                 }
                 else {
-                  echo l(t('Login'), 'user', array('attributes' => array('class' => array('pull-right')))); 
+                  echo l(t('Login'), 'user/login', array('query' => array('destination' => 'node/add/logo'), 'attributes' => array('class' => array('pull-right')))); 
                 }
                 ?>
 	          	</div>

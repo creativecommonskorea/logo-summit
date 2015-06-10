@@ -1,7 +1,7 @@
 <?php global $language; ?>
 
 <div class="clearfix">
-	<h1><?php echo t('Create new account'); ?><small><?php echo l(t('Login'), 'user/login', array('attributes' => array('class' => 'pull-right label label-default login-title'))); ?></small></h1>
+	<h1><?php echo t('Create new account'); ?><small><?php echo l(t('Login'), 'user/login', array('query' => array('destination' => 'node/add/logo'), 'attributes' => array('class' => array('pull-right label label-default login-title')))); ?></small></h1>
 	<div class="social-signin">
 		<a href="/<?php echo $language->language; ?>/user/simple-fb-connect" class="btn btn-primary pull-right"><i class="fa fa-facebook"></i>&nbsp;&nbsp;<?php echo t('Facebook connect'); ?></a>
 		<a href="/<?php echo $language->language; ?>/twitter/redirect" class="btn btn-primary"><i class="fa fa-twitter"></i>&nbsp;&nbsp;<?php echo t('Sign in with Twitter'); ?></a>
