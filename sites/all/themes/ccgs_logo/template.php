@@ -97,26 +97,12 @@ function ccgs_logo_form_logo_node_form_alter(&$form, &$form_state, $form_id) {
 /**
  * Check if current path need header or not.
  */
-function ccgs_check_if_no_header() {
-  global $language;
+function ccgs_need_header() {
   $no_header_pathes = array(
     'user', 'user/login', 'user/register', 'user/password', 'user/reset'
   );
-  // debug('lang');
-  // debug(!empty($language->language));
-  // debug('admin');
-  // debug(!path_is_admin(current_path()));
-  // debug('lang');
-  // debug(!in_array(current_path(), $no_header_pathes));
 
-  return !empty($language->language) && !in_array(current_path(), $no_header_pathes);
-}
-
-function ccgs_check_if_admin() {
-  $no_header_pathes = array(
-    'node/add/logo'
-  );
-  return path_is_admin(current_path()) && !in_array(current_path(), $no_header_pathes);
+  return !in_array(current_path(), $no_header_pathes) && !path_is_admin(current_path());
 }
 
 
@@ -146,5 +132,9 @@ function ccgs_logo_preprocess_field(&$variables, $hook) {
 }
 
 function check_need_tabs() {
-  return arg(0) == 'user' and is_numeric(arg(1));
+  $pathes = array(
+    'node/add/logo'
+  );
+
+  return (arg(0) == 'user' and is_numeric(arg(1))) || (path_is_admin(current_path()) && !in_array(current_path(), $pathes));
 }
