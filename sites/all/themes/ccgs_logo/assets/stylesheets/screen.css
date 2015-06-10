@@ -12849,3 +12849,7 @@ h1 small {
 .user-picture, .field-name-field-license {
   display: none;
 }
+
+#edit-field-image-und-0-upload-button {
+  visibility: hidden;
+}
