@@ -485,6 +485,8 @@ class TwitterAccount extends Entity {
       $this->status = new TwitterStatus($values['status']);
       unset($values['status']);
     }
+    $values['email'] = isset($values['email']) ? $values['email'] : '';
+    
     parent::__construct($values, 'twitter_account');
   }
 

@@ -126,6 +126,7 @@ function twitter_signin_oauth_callback_submit(&$form, &$form_state) {
   $key = variable_get('twitter_consumer_key', '');
   $secret = variable_get('twitter_consumer_secret', '');
   $response = $form_state['twitter_oauth']['response'];
+  $mail = '';
 
   $account = user_external_load($response['user_id']);
   if (isset($account->uid)) {
@@ -149,11 +150,21 @@ function twitter_signin_oauth_callback_submit(&$form, &$form_state) {
       $account = user_load_multiple(array(), array('name' => $response['screen_name']));
       $account = array_shift($account);
 
+      $twitter = new Twitter($key, $secret, $response['oauth_token'], $response['oauth_token_secret']);
+      $twitter_account = $twitter->verify_credentials(array('include_email' => 'true'));
+      
+      if(!empty($twitter_account->email) && valid_email_address($twitter_account->email)) {
+        $mail = $twitter_account->email;
+      }
+
       if (empty($account->uid)) {
         $account = new StdClass();
         $password = user_password();
         $account->name = $response['screen_name'];
         $account->pass = $password;
+        if (valid_email_address($mail)) {
+          $account->mail = $mail;
+        }
         $account->init = $response['screen_name'];
         $account->status = 1;
         $account->timezone = variable_get('date_default_timezone', '');
@@ -202,7 +213,6 @@ function twitter_signin_oauth_callback_submit(&$form, &$form_state) {
  * signed in with Twitter but did not have an account in the site yet.
  */
 function twitter_signin_user_insert(&$edit, $account, $category) {
-  // watchdog('twitter', 'twitter_signin_user_insert called: $account:<br> %account<br> $edit:<br> %edit <br> $session: <br>%session', array('%account' => print_r($account, true), '%edit' => print_r($edit, true), '%session' => print_r($_SESSION['twitter']['values'], true)), WATCHDOG_NOTICE);
   _twitter_signin_add_account($edit, $account);
 }
 
