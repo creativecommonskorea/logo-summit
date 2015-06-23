@@ -38,7 +38,7 @@ function simple_fb_connect_api_keys_settings($form, &$form_state) {
 
   $form['fb_settings']['simple_fb_connect_connect_url'] = array(
     '#type' => 'textfield',
-    '#attributes' => array('readonly' => 'readonly'),
+    '#disabled' => TRUE,
     '#title' => t('Connect url'),
     '#description' => t('Copy this value to <em>Site URL</em> and <em>Mobile Site URL</em> of your Facebook App settings.'),
     '#default_value' => $GLOBALS['base_url'],
@@ -60,9 +60,37 @@ function simple_fb_connect_api_keys_settings($form, &$form_state) {
   $form['module_settings']['simple_fb_connect_login_only'] = array(
     '#type' => 'checkbox',
     '#title' => t('Login Only (No Registration)'),
-    '#description' => t('Allow only existing users to login with FB. New users can not signup using FB Connect.'),
+    '#description' => t('Allow only existing users to login with FB. New users can not register using FB login.'),
     '#default_value' => variable_get('simple_fb_connect_login_only', 0),
   );
+
+  $form['module_settings']['simple_fb_connect_disable_admin_login'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Disable FB login for administrator'),
+    '#description' => t('Disabling FB login for administrator (<em>user 1</em>) can help protect your site if a security vulnerability is ever discovered in Facebook PHP SDK or this module.'),
+    '#default_value' => variable_get('simple_fb_connect_disable_admin_login', 1),
+  );
+
+  // Option to disable FB login for specific roles
+  $roles = user_roles();
+  $options = array();
+  foreach ($roles as $rid => $label) {
+    // "anonymous users" and "authenticated users" are $rid 1 and 2.
+    // we don't want these to appear as options.
+    if ($rid > 2) {
+      $options[$rid] = check_plain($label);
+    }
+  }
+
+  $form['module_settings']['simple_fb_connect_disabled_roles'] = array(
+    '#type' => 'checkboxes',
+    '#title' => t('Disable FB login for the following roles'),
+    '#options' => $options,
+    '#default_value' => variable_get('simple_fb_connect_disabled_roles', array()),
+  );
+  if (empty($options)) {
+    $form['module_settings']['simple_fb_connect_disabled_roles']['#description'] = t('No roles found.');
+  }
 
   return system_settings_form($form);
 }

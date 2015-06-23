@@ -127,20 +127,18 @@ function simple_fb_connect_login($returned_from_fb = NULL) {
   // If there is an existing drupal user account with the same email address,
   // log that user in and redirect to the path defined in module settings
   if ($drupal_user) {
-    if (simple_fb_connect_login_user($drupal_user)) {
+    if (simple_fb_connect_login_user($drupal_user, 'existing_user')) {
       // invoke a login event if Rules module is enabled
       if (module_exists('rules')) {
         rules_invoke_event('simple_fb_connect_login', $drupal_user, $fb_user_profile);
       }
       drupal_set_message(t('You are now logged in with the username @username', array('@username' => $drupal_user->name)));
-
       $post_login_url = simple_fb_connect_get_post_login_url();
       drupal_goto($post_login_url);
     }
 
-    // The login didn't succeed (account blocked).
+    // The login didn't succeed.
     else {
-      drupal_set_message(t('You could not be logged in because your account @username has not been activated or is blocked.', array('@username' => $drupal_user->name)), 'error');
       drupal_goto('user');
     }
   }
@@ -163,19 +161,17 @@ function simple_fb_connect_login($returned_from_fb = NULL) {
   $new_drupal_user = simple_fb_connect_create_user($fb_user_profile, $session);
   if ($new_drupal_user) {
     // New user was succesfully created. Log the user in.
-    if (simple_fb_connect_login_user($new_drupal_user)) {
+    if (simple_fb_connect_login_user($new_drupal_user, 'new_user')) {
       // invoke a registration event if Rules module is enabled
       if (module_exists('rules')) {
         rules_invoke_event('simple_fb_connect_registration', $new_drupal_user, $fb_user_profile);
       }
       drupal_set_message(t('You have been registered with the username @username.', array('@username' => $new_drupal_user->name)));
-
       $post_login_url = simple_fb_connect_get_post_login_url();
       drupal_goto($post_login_url);
     }
-    // new user was succesfully created but the account is blocked (pending activation)
+    // new user was succesfully created but the account is blocked
     else {
-      drupal_set_message(t('You have been registered with the username @username but your account is pending approval from the site administrator. You will receive an email when your account is activated.', array('@username' => $new_drupal_user->name)), 'warning');
       drupal_goto(variable_get('simple_fb_connect_post_login_url', 'user'));
     }
   }
@@ -195,27 +191,93 @@ function simple_fb_connect_login($returned_from_fb = NULL) {
  * @param $account
  *   A Drupal user object.
  *
+ * @param $mode
+ *   'new_user' or 'existing_user'. Controls the error message that is shown to the user.
+ *
  * @return boolean
  *   TRUE if the account is active and can be logged in
  *   FALSE if the account is not active
  */
-function simple_fb_connect_login_user($drupal_user) {
-  // If Boost module is used, we need to add DRUPAL_UID cookie.
-  // If this cookie is set, Boost will not serve cached pages to the user.
-  // user/simple-fb-connect/* must also be added to Boost "cache all pages except those listed"
-  if (module_exists('boost')) {
-    boost_set_cookie($drupal_user->uid);
+function simple_fb_connect_login_user($drupal_user, $mode) {
+  // Prevent admin login if defined in module settings
+  if (simple_fb_connect_login_disabled_for_admin($drupal_user)) {
+    return FALSE;
+  }
+
+  // Prevent login if user has one of the roles defined in module settings
+  if (simple_fb_connect_login_disabled_by_role($drupal_user)) {
+    return FALSE;
   }
 
   // Check that the account is active
   if ($drupal_user->status) {
+
+    // Do the actual login
     $form_state['uid'] = $drupal_user->uid;
     user_login_submit(array(), $form_state);
+
+    // If Boost module is used, we need to add DRUPAL_UID cookie.
+    // If this cookie is set, Boost will not serve cached pages to the user.
+    // user/simple-fb-connect/* must also be added to Boost "cache all pages except those listed"
+    if (module_exists('boost')) {
+      boost_set_cookie($drupal_user->uid);
+    }
     return TRUE;
   }
-  else {
-    return FALSE;
+
+  if ($mode == 'existing_user') {
+    drupal_set_message(t('You could not be logged in because your account @username has not been activated or is blocked.', array('@username' => $drupal_user->name)), 'error');
   }
+  else {
+    drupal_set_message(t('You have been registered with the username @username but your account is pending approval from the site administrator. You will receive an email when your account is activated.', array('@username' => $drupal_user->name)), 'warning');
+  }
+  return FALSE;
+}
+
+/**
+ * Check if the admin FB login is disabled
+ */
+function simple_fb_connect_login_disabled_for_admin($drupal_user) {
+  // Prevent admin login if defined in module settings
+  if ($drupal_user->uid == 1 && variable_get('simple_fb_connect_disable_admin_login', 1)) {
+    drupal_set_message(t('FB login is disabled for site administrator. Login with your local user account.'), 'error');
+    watchdog(
+      'simple_fb_connect',
+      'FB login for user %user prevented. FB login for site administrator (user 1) is disabled in module settings.',
+      array('%user' => $drupal_user->name),
+      WATCHDOG_WARNING
+    );
+    return TRUE;
+  }
+
+  // User is not admin or admin login is not disabled
+  return FALSE;
+}
+
+/**
+ * Check if the user has one of the "FB login disabled" roles
+ */
+function simple_fb_connect_login_disabled_by_role($drupal_user) {
+  // Get module settings.
+  $roles = variable_get('simple_fb_connect_disabled_roles', array());
+
+  // Loop through all roles the user has
+  foreach ($drupal_user->roles as $rid => $role) {
+    // Check if FB login is disabled for this role. Disabled roles have value > 0
+    if (array_key_exists($rid, $roles) && $roles[$rid] > 0) {
+      drupal_set_message(t('FB login is disabled for your role. Please login with your local user account.'), 'error');
+      watchdog(
+        'simple_fb_connect',
+        'FB login for user %user prevented. FB login for role %role is disabled in module settings.',
+        array('%user' => $drupal_user->name, '%role' => $role),
+        WATCHDOG_WARNING
+      );
+      return TRUE;
+    }
+  }
+
+  // If we didn't return TRUE already, FB login is not disabled for any of the user's roles
+  return FALSE;
 }
 
 /**
@@ -423,9 +485,22 @@ function simple_fb_connect_get_scope() {
  * This function will initialize the FB App
  *
  * @return
- *   TRUE if SDK is found, app_id and app_secret have been defiend. FALSE otherwise.
+ *   TRUE if initialization was OK. FALSE otherwise.
  */
 function simple_fb_connect_initialize() {
+  // Check that PHP version is 5.4 or higher
+  $php_version = phpversion();
+  if ($php_version < 5.4) {
+    drupal_set_message(t('Simple FB Connect not configured properly. Contact site administrator.'), 'error');
+    watchdog(
+      'simple_fb_connect',
+      'Facebook PHP SDK v4 requires PHP 5.4 or higher. Your PHP version is @version',
+      array('@version' => $php_version),
+      WATCHDOG_ERROR
+    );
+    return FALSE;
+  }
+
   // Check that Facebook PHP SDK is properly installed and that the version is 4.0.x
   $sdk = libraries_detect('facebook-php-sdk-v4');
   if (!is_array($sdk) || !$sdk['installed'] || $sdk['version'] < '4.0' || $sdk['version'] >= '4.1') {
@@ -504,9 +579,70 @@ function simple_fb_connect_save_session($helper) {
   }
 
   // If we are still here, Facebook returned a session.
-  // Store it to $_SESSION and return it.
-  $_SESSION['simple_fb_connect']['user_token'] = $session->getToken();
-  return $session;
+  // Let's double check that user access token is coming from our app
+  if (simple_fb_connect_validate_token($session)) {
+    // Store user access token to $_SESSION and return FB session.
+    $_SESSION['simple_fb_connect']['user_token'] = $session->getToken();
+    return $session;
+  }
+
+  // Something went wrong
+  return FALSE;
+}
+
+/**
+ * This function will double check that user access token is coming from our app
+ *
+ * @param $session
+ *   FacebookSession object
+ * @return
+ *   TRUE if user access token is coming from our app
+ *   FALSE otherwise
+ */
+function simple_fb_connect_validate_token($session) {
+  $app_id = variable_get('simple_fb_connect_appid', 0);
+  $user_token = $session->getToken();
+
+  try {
+    $request = new FacebookRequest(
+      $session,
+      'GET',
+      '/debug_token?input_token=' . $user_token
+    );
+    $token_app_id = $request->execute()->getGraphObject()->getProperty('app_id');
+    if ($token_app_id == $app_id) {
+      return TRUE;
+    }
+  }
+  catch (FacebookRequestException $ex) {
+    // Facebook will throw FacebookRequestException if app id does not match
+    watchdog(
+      'simple_fb_connect',
+      'User token validation failed: FacebookRequestException. Error details: @message',
+      array('@message' => json_encode($ex->getResponse())),
+      WATCHDOG_ERROR
+    );
+    return FALSE;
+  }
+  catch (\Exception $ex) {
+    watchdog(
+      'simple_fb_connect',
+      'Could not validate user token: Unhandled exception. Error details: @message',
+      array('@message' => $ex->getMessage()),
+      WATCHDOG_ERROR
+    );
+    return FALSE;
+  }
+
+  // We should not end here because FB throws an exception if the app id
+  // doesn't match. Let's handle this scenario just to be on the safe side.
+  watchdog(
+    'simple_fb_connect',
+    'User token validation failed but Facebook did not throw an exception.',
+    array(),
+    WATCHDOG_ERROR
+  );
+  return FALSE;
 }
 
 /**
@@ -614,7 +750,7 @@ function simple_fb_connect_rules_event_info() {
         'user' => array('type' => 'user', 'label' => t('The user logging in with Facebook')),
       ),
     ),
-    'fb_registration' => array(
+    'simple_fb_connect_registration' => array(
       'label' => t('User registers a new account connected to Facebook'),
       'module' => 'simple_fb_connect',
       'group' => t('Social Media'),
