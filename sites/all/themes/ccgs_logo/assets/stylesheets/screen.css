@@ -12850,6 +12850,11 @@ h1 small {
   display: none;
 }
 
+.page-node-add .user-picture, .field-name-field-license,
+.page-node-edit .user-picture, .field-name-field-license {
+  display: block;
+}
+
 #edit-field-image-und-0-upload-button {
   visibility: hidden;
 }
