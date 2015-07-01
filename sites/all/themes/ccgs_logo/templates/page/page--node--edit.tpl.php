@@ -98,3 +98,21 @@
 
   </div> <!-- /#main -->
 </div> <!-- /#main-wrapper -->
+
+<footer id="footer" class="footer" role="footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-10 col-md-offset-1">
+        <p>&nbsp;</p>
+        <p style="margin-left: 1em; margin-top: 0.5em; display: inline-block">
+        <?php if ($language->language == 'en'): ?>
+          This web site is operated by <a href="https://creativecommons.org">Creative Commons</a> and <a href="http://cckorea.org">Creative Commons Korea</a> creative@cckorea.org
+        <?php else: ?>
+          이 사이트는 <a href="https://creativecommons.org">크리에이티브 커먼즈</a>와 <a href="http://cckorea.org">크리에이티브커먼즈 코리아</a>에서 운영합니다. creative@cckorea.org / 070-7618-0321
+        <?php endif; ?>
+        </p>
+      </div>
+    </div>
+
+  </div>
+</footer>
