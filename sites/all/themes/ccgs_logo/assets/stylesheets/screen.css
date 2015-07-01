@@ -12860,3 +12860,7 @@ h1 small {
   top: 0;
   z-index: 100;
 }*/
+
+.details-box em {
+  background: yellow;
+}
