@@ -19,7 +19,8 @@
                 }
                 else {
                   echo l(t('Login'), 'user/login', array('query' => array('destination' => 'node/add/logo'), 'attributes' => array('class' => array('pull-right')))); 
-                  echo l(t('Create new account'), 'user/register', array('attributes' => array('class' => 'login-register', 'title' => t('Create a new user account'))));
+                  echo '<br />';
+                  echo l(t('Create new account'), 'user/register', array('attributes' => array('class' => 'login-register pull-right', 'title' => t('Create a new user account'))));
                 }
                 ?>
               </div>
