@@ -12850,8 +12850,10 @@ h1 small {
   display: none;
 }
 
-.page-node-add .user-picture, .field-name-field-license,
-.page-node-edit .user-picture, .field-name-field-license {
+.page-node-add .user-picture,
+.page-node-add .field-name-field-license,
+.page-node-edit .user-picture, 
+.page-node-edit .field-name-field-license {
   display: block;
 }
 
