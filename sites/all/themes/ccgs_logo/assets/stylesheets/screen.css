@@ -12888,3 +12888,11 @@ h1 small {
   text-indent: 0;
   margin: 5px 0;
 }
+
+.node-type-logo .form-item.form-type-item.form-group label {
+  display: none;
+}
+
+.node-type-logo .form-item.form-type-item.form-group  a {
+  color: #fff;
+}
