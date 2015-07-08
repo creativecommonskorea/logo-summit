@@ -12862,7 +12862,8 @@ h1 small {
   visibility: hidden;
 }
 
-.details-box em {
+.details-box em,
+.notice em {
   background: yellow;
 }
 
@@ -12895,4 +12896,15 @@ h1 small {
 
 .node-type-logo .form-item.form-type-item.form-group  a {
   color: #fff;
+}
+
+.notice .prize {
+  text-align: center;
+  display: block;
+  width: 420px;
+  margin: 0 auto;
+}
+
+.notice .prize li {
+  list-style: none;
 }
