@@ -138,3 +138,36 @@ function check_need_tabs() {
 
   return (arg(0) == 'user' and is_numeric(arg(1))) || (path_is_admin(current_path()) && !in_array(current_path(), $pathes));
 }
+
+/**
+ * Preprocess function for the thumbs_up template.
+ */
+function ccgs_logo_preprocess_rate_template_thumbs_up(&$variables) {
+  extract($variables);
+
+  $classes = 'rate-thumbs-up-btn-up btn';
+  $text = t('Vote');
+
+  if (isset($results['user_vote']) && $results['user_vote'] == $links[0]['value']) {
+    $classes .= ' user-voted btn-danger';
+    $text = t('Cancel vote');
+  } else {
+    $classes .= ' user-not-voted btn-primary';
+  }
+
+  $variables['up_button'] = theme('rate_button', array('text' => $text, 'href' => $links[0]['href'], 'class' => $classes));
+
+  $info = array();
+  if ($mode == RATE_CLOSED) {
+    $info[] = t('Voting is closed.');
+  }
+  if ($mode != RATE_COMPACT && $mode != RATE_COMPACT_DISABLED) {
+    if (isset($results['user_vote'])) {
+      $info[] = format_plural($results['count'], 'Only you voted.', '@count users have voted, including you.');
+    }
+    else {
+      $info[] = format_plural($results['count'], '@count user has voted.', '@count users have voted.');
+    }
+  }
+  $variables['info'] = implode(' ', $info);
+}
