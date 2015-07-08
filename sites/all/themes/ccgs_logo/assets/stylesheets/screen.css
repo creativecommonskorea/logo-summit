@@ -12898,11 +12898,8 @@ h1 small {
   color: #fff;
 }
 
-.notice .prize {
-  text-align: center;
-  display: block;
-  width: 420px;
-  margin: 0 auto;
+.notice .prize ul {
+  padding: 0;
 }
 
 .notice .prize li {
