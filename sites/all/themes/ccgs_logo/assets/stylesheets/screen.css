@@ -12905,3 +12905,7 @@ h1 small {
 .notice .prize li {
   list-style: none;
 }
+
+.rate-button {
+  display: none;
+}
