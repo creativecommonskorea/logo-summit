@@ -12909,3 +12909,12 @@ h1 small {
 .rate-button {
   display: none;
 }
+
+#finalist {
+  border: 1px solid #fff;
+  margin: 1em 0;
+}
+
+.notice .desc {
+  padding: 1.5em 3em;
+}
