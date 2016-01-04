@@ -10,21 +10,10 @@
             
             <div class="row img-block">
               <div class="links">
-                <a href="http://summit.creativecommons.org<?php if (is_korean()) echo '/kr' ?>">2015 CC Global Summit</a>
-                <?php 
-                if (user_is_logged_in()) {
-                  echo l(t('My account'), 'user', array('attributes' => array('class' => array('pull-right'))));
-                  echo '<br />';
-                  echo l(t('Logout'), 'user/logout', array('attributes' => array('class' => array('pull-right'))));
-                }
-                else {
-                  echo l(t('Login'), 'user/login', array('query' => array('destination' => 'node/add/logo'), 'attributes' => array('class' => array('pull-right')))); 
-                  echo '<br />';
-                  echo l(t('Create new account'), 'user/register', array('attributes' => array('class' => 'login-register pull-right', 'title' => t('Create a new user account'))));
-                }
-                ?>
+                <a target="blank" href="http://summit.creativecommons.org">2015 CC Global Summit</a>
+                <a href="/ko/" class="pull-right">한국어</a>
               </div>
-              <p><a href="/<?php echo $language->language; ?>"><img alt="" class="img-responsive img-centered" src="/sites/all/themes/ccgs_logo/assets/images/logo-icon.png" /></a></p>
+              <p><a href="/en/"><img alt="" class="img-responsive img-centered" src="/sites/all/themes/ccgs_logo/assets/images/logo-icon.png" /></a></p>
               <p>&nbsp;</p>
               <hr  />
               <h1 id="logo-heading-en" class="text-center">CC Global Summit 2015<br />Logo Contest<br />Winner Announced!</h1>
